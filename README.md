@@ -1,12 +1,12 @@
 # streamdeck-tado-v2-plugin
 
-Plugin for manage TADO Thermostat from the Stream Deck.
+Plugin for manage TADO Thermostat from the Elgato Stream Deck.
 
 > [!WARNING]
 > This plugin works only for thermostats Tado V2 and V3 (Not TadoX)
 
 > [!IMPORTANT]
-> This version replaces the old streamdeck Tado plugin that will stop working when Tado removes the old authentication journey.
+> This version replaces the old Elgato Stream Deck Tado plugin that will stop working when Tado removes the old authentication journey.
 > [Documentation](https://mattdavis90.github.io/node-tado-client/)
 
 ### Known issues

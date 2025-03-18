@@ -1,7 +1,7 @@
 SDPIComponents.i18n.locales = {
 	en: {
 		PickHome: "Select a home",
-		home_label: "Home",
+		HomeLabel: "Home",
 		HomeFetchingLabel: "Fetching homes...",
 		PickZone: "Select a zone",
 		ZoneLabel: "Zone",
@@ -15,7 +15,7 @@ SDPIComponents.i18n.locales = {
 	},
 	es: {
 		PickHome: "Selecciona una casa",
-		home_label: "Casa",
+		HomeLabel: "Casa",
 		HomeFetchingLabel: "Cargando casa...",
 		PickZone: "Selecciona una habitacion",
 		ZoneLabel: "Habitacion",
@@ -29,7 +29,7 @@ SDPIComponents.i18n.locales = {
 	},
 	de: {
 		PickHome: "Wählen Sie ein Zuhause aus",
-		home_label: "Zuhause",
+		HomeLabel: "Zuhause",
 		HomeFetchingLabel: "Zuhause wird geladen...",
 		PickZone: "Wählen Sie eine Räume aus",
 		ZoneLabel: "Zimmer",
@@ -43,7 +43,7 @@ SDPIComponents.i18n.locales = {
 	},
 	fr: {
 		PickHome: "Choisissez une maison",
-		home_label: "Maison",
+		HomeLabel: "Maison",
 		HomeFetchingLabel: "Chargement des maisons...",
 		PickZone: "Choisissez une pièce",
 		ZoneLabel: "Pièce",

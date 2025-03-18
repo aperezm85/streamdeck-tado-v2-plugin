@@ -51,7 +51,7 @@
 	"Category": "Tado V2",
 	"CategoryIcon": "imgs/plugin/category-icon",
 	"CodePath": "bin/plugin.js",
-	"Description": "Control your Tado thermostat from your Stream Deck",
+	"Description": "Control your Tado thermostat from your Elgato Stream Deck",
 	"Icon": "imgs/plugin/marketplace",
 	"SDKVersion": 2,
 	"Software": {
