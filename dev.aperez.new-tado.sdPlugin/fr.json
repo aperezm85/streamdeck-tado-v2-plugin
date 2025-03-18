@@ -1,0 +1,21 @@
+{
+    "Name": "Tado V2",
+    "Category": "Tado",
+    "Description": "Contrôlez votre chauffage Tado.",
+    "dev.aperez.new-tado.power": {
+        "Name": "Allumer / Éteindre",
+        "Tooltip": "Allumez ou éteignez le chauffage.",
+        "States": [
+            {
+                "Name": "Allumé"
+            },
+            {
+                "Name": "Éteint"
+            }
+        ]
+    },
+    "dev.aperez.new-tado.current-temperature": {
+        "Name": "Température actuelle",
+        "Tooltip": "Affiche la température actuelle du thermostat sélectionné."
+    }
+}

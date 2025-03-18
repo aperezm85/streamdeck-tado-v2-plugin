@@ -1,0 +1,75 @@
+{
+	"Name": "Tado V2",
+	"Version": "2.0.0.0",
+	"Author": "Alex Perez",
+	"Actions": [
+		{
+			"Name": "Current temperature",
+			"UUID": "dev.aperez.new-tado.current-temperature",
+			"Icon": "imgs/actions/status/icon",
+			"Tooltip": "Displays the current temperature of the selected thermostat.",
+			"PropertyInspectorPath": "ui/current-temperature.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/status/status",
+					"TitleAlignment": "bottom",
+					"FontSize": 12,
+					"TitleColor": "#FFFFFF"
+				}
+			]
+		},
+		{
+			"Name": "On / Off",
+			"UUID": "dev.aperez.new-tado.power",
+			"Icon": "imgs/actions/power/power",
+			"Tooltip": "Turn heating on or off.",
+			"PropertyInspectorPath": "ui/power.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/power/on",
+					"Name": "On",
+					"TitleAlignment": "middle",
+					"FontSize": 15,
+					"TitleColor": "#FFFFFF"
+				},
+				{
+					"Image": "imgs/actions/power/off",
+					"Name": "Off",
+					"TitleAlignment": "middle",
+					"FontSize": 15,
+					"TitleColor": "#FFFFFF"
+				}
+			]
+		}
+	],
+	"Category": "Tado V2",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Control your Tado thermostat from your Stream Deck",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.4"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "12"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "dev.aperez.new-tado"
+}

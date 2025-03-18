@@ -1,0 +1,21 @@
+{
+    "Name": "Tado V2",
+    "Category": "Tado",
+    "Description": "Controle su calefacción Tado desde su Stream Deck.",
+    "dev.aperez.new-tado.current-temperature": {
+        "Name": "Temperatura actual",
+        "Tooltip": "Muestra la temperatura actual del termostato seleccionado."
+    },
+    "dev.aperez.new-tado.power": {
+        "Name": "Endendido / Apagado",
+        "Tooltip": "Enciende o apaga tu termostato desde el Stream Deck.",
+        "States": [
+            {
+                "Name": "Encendido"
+            },
+            {
+                "Name": "Apagado"
+            }
+        ]
+    }
+}

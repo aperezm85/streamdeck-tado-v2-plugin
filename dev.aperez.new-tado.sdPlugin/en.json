@@ -1,0 +1,21 @@
+{
+    "Name": "Tado V2",
+    "Category": "Tado",
+    "Description": "Control your Tado heating.",
+    "dev.aperez.new-tado.power": {
+        "Name": "On / Off",
+        "Tooltip": "Turn heating on or off.",
+        "States": [
+            {
+                "Name": "On"
+            },
+            {
+                "Name": "Off"
+            }
+        ]
+    },
+    "dev.aperez.new-tado.current-temperature": {
+        "Name": "Current temperature",
+        "Tooltip": "Displays the current temperature of the selected thermostat."
+    }
+}

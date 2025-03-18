@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<title>Current temperature</title>
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script src="./locale.js"></script>
+	</head>
+
+	<body>
+		<!--
+        Learn more about property inspector components at https://sdpi-components.dev/docs/components
+    -->
+		<sdpi-item label="__MSG_HomeLabel__">
+			<sdpi-select
+				id="homes"
+				setting="homeId"
+				placeholder="__MSG_PickHome__"
+				datasource="getHomes"
+				loading="__MSG_HomeFetchingLabel__"
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item label="__MSG_ZoneLabel__">
+			<sdpi-select
+				id="zones"
+				setting="zoneId"
+				placeholder="__MSG_PickZone__"
+				datasource="getZones"
+				loading="__MSG_ZoneFetchingLabel__"
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+
+		<sdpi-item label="__MSG_UnitLabel__">
+			<sdpi-select id="unit" setting="unit" placeholder="__MSG_PickUnit__">
+				<option value="celsius">__MSG_Celsium__</option>
+				<option value="fahrenheit">__MSG_Fahrenheit__</option>
+			</sdpi-select>
+		</sdpi-item>
+	</body>
+</html>
