@@ -1,113 +1,123 @@
 <!doctype html>
 <html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script src="./locale.js" type="text/javascript"></script>
 
-<head lang="en">
-	<meta charset="utf-8" />
-	<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
-	<script src="./locale.js" type="text/javascript"></script>
+		<style>
+			.hidden {
+				display: none;
+			}
+		</style>
+	</head>
 
-	<style>
-		.hidden {
-			display: none;
-		}
-	</style>
-</head>
-
-<body>
-	<!--
+	<body>
+		<!--
         Learn more about property inspector components at https://sdpi-components.dev/docs/components
     -->
-	<sdpi-item label="__MSG_HomeLabel__">
-		<sdpi-select id="homes" setting="homeId" placeholder="__MSG_PickHome__" datasource="getHomes"
-			loading="__MSG_HomeFetchingLabel__" hot-reload>
-		</sdpi-select>
-	</sdpi-item>
+		<sdpi-item label="__MSG_HomeLabel__">
+			<sdpi-select
+				id="homes"
+				setting="homeId"
+				placeholder="__MSG_PickHome__"
+				datasource="getHomes"
+				loading="__MSG_HomeFetchingLabel__"
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
 
-	<sdpi-item label="__MSG_ZoneLabel__">
-		<sdpi-select id="zones" setting="zoneId" placeholder="__MSG_PickZone__" datasource="getZones"
-			loading="__MSG_ZoneFetchingLabel__" hot-reload>
-		</sdpi-select>
-	</sdpi-item>
+		<sdpi-item label="__MSG_ZoneLabel__">
+			<sdpi-select
+				id="zones"
+				setting="zoneId"
+				placeholder="__MSG_PickZone__"
+				datasource="getZones"
+				loading="__MSG_ZoneFetchingLabel__"
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
 
-	<sdpi-item label="__MSG_UnitLabel__">
-		<sdpi-select id="unit" setting="unit" placeholder="__MSG_PickUnit__">
-			<option value="celsius">__MSG_Celsium__</option>
-			<option value="fahrenheit">__MSG_Fahrenheit__</option>
-		</sdpi-select>
-	</sdpi-item>
+		<sdpi-item label="__MSG_UnitLabel__">
+			<sdpi-select id="unit" setting="unit" placeholder="__MSG_PickUnit__">
+				<option value="celsius">__MSG_Celsium__</option>
+				<option value="fahrenheit">__MSG_Fahrenheit__</option>
+			</sdpi-select>
+		</sdpi-item>
 
-	<sdpi-item label="__MSG_TemperatureLabel__">
-		<sdpi-range setting="temperature" min="5" max="25" step="0.5" showlabels default="20">
-			<span slot="min">5°C</span>
-			<span slot="max">25°C</span>
-		</sdpi-range>
-	</sdpi-item>
+		<sdpi-item label="__MSG_TemperatureLabel__">
+			<sdpi-range setting="temperature" min="5" max="25" step="0.5" showlabels default="20">
+				<span slot="min">5°C</span>
+				<span slot="max">25°C</span>
+			</sdpi-range>
+		</sdpi-item>
 
-	<sdpi-item label="__MSG_TemperatureSelectedLabel__">
-		<sdpi-textfield id="temperature_selected" disabled></sdpi-textfield>
-	</sdpi-item>
+		<sdpi-item label="__MSG_TemperatureSelectedLabel__">
+			<sdpi-textfield id="temperature_selected" disabled></sdpi-textfield>
+		</sdpi-item>
 
-	<script>
-		(async function () {
-			const info = await SDPIComponents.streamDeckClient.getConnectionInfo();
+		<script>
+			(async function () {
+				const info = await SDPIComponents.streamDeckClient.getConnectionInfo();
 
-			SDPIComponents.i18n.language = info.info.application.language;
-			const msg = SDPIComponents.i18n.getMessage("PickHome");
-			console.log(msg);
-			console.log(SDPIComponents.i18n.language);
+				SDPIComponents.i18n.language = info.info.application.language;
+				const msg = SDPIComponents.i18n.getMessage("PickHome");
+				console.log(msg);
+				console.log(SDPIComponents.i18n.language);
 
-			function convertToFahrenheit(celsius) {
-				return (celsius * 9) / 5 + 32;
-			}
-
-			function convertToCelsius(f) {
-				return ((f - 32) * 5) / 9;
-			}
-
-			function writeValueToTemperatureSelected() {
-				const units = document.querySelector('sdpi-select[setting="unit"]').value;
-				const temperature = document.querySelector('sdpi-range[setting="temperature"]').value;
-
-				document.querySelector("#temperature_selected").value = `${temperature}${units === "celsius" ? "°C" : "°F"}`;
-			}
-
-			document.querySelector('sdpi-select[setting="unit"]').addEventListener("valuechange", (ev) => {
-				if (ev.srcElement.value === "celsius") {
-					document.querySelector('sdpi-range[setting="temperature"]').setAttribute("min", 5);
-					document.querySelector('sdpi-range[setting="temperature"]').setAttribute("max", 25);
-					document.querySelector('sdpi-range[setting="temperature"]').setAttribute("step", 0.5);
-					document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="min"]').innerText =
-						"5°C";
-					document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="max"]').innerText =
-						"25°C";
-
-					document.querySelector('sdpi-range[setting="temperature"]').value = convertToCelsius(
-						document.querySelector('sdpi-range[setting="temperature"]').value,
-					);
-				} else {
-					document.querySelector('sdpi-range[setting="temperature"]').setAttribute("min", 41);
-					document.querySelector('sdpi-range[setting="temperature"]').setAttribute("max", 77);
-					document.querySelector('sdpi-range[setting="temperature"]').setAttribute("step", 1);
-					document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="min"]').innerText =
-						"41°F";
-					document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="max"]').innerText =
-						"77°F";
-
-					document.querySelector('sdpi-range[setting="temperature"]').value = convertToFahrenheit(
-						document.querySelector('sdpi-range[setting="temperature"]').value,
-					);
+				function convertToFahrenheit(celsius) {
+					return (celsius * 9) / 5 + 32;
 				}
 
-				document.querySelector('sdpi-range[setting="temperature"]').parentElement.classList.remove("hidden");
+				function convertToCelsius(f) {
+					return ((f - 32) * 5) / 9;
+				}
 
-				writeValueToTemperatureSelected();
-			});
+				function writeValueToTemperatureSelected() {
+					const units = document.querySelector('sdpi-select[setting="unit"]').value;
+					const temperature = document.querySelector('sdpi-range[setting="temperature"]').value;
 
-			document.querySelector('sdpi-range[setting="temperature"]').addEventListener("valuechange", (ev) => {
-				writeValueToTemperatureSelected();
-			});
-		})();
-	</script>
-</body>
+					document.querySelector("#temperature_selected").value = `${temperature}${units === "celsius" ? "°C" : "°F"}`;
+				}
 
+				document.querySelector('sdpi-select[setting="unit"]').addEventListener("valuechange", (ev) => {
+					if (ev.srcElement.value === "celsius") {
+						document.querySelector('sdpi-range[setting="temperature"]').setAttribute("min", 5);
+						document.querySelector('sdpi-range[setting="temperature"]').setAttribute("max", 25);
+						document.querySelector('sdpi-range[setting="temperature"]').setAttribute("step", 0.5);
+						document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="min"]').innerText =
+							"5°C";
+						document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="max"]').innerText =
+							"25°C";
+
+						document.querySelector('sdpi-range[setting="temperature"]').value = convertToCelsius(
+							document.querySelector('sdpi-range[setting="temperature"]').value,
+						);
+					} else {
+						document.querySelector('sdpi-range[setting="temperature"]').setAttribute("min", 41);
+						document.querySelector('sdpi-range[setting="temperature"]').setAttribute("max", 77);
+						document.querySelector('sdpi-range[setting="temperature"]').setAttribute("step", 1);
+						document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="min"]').innerText =
+							"41°F";
+						document.querySelector('sdpi-range[setting="temperature"]').querySelector('span[slot="max"]').innerText =
+							"77°F";
+
+						document.querySelector('sdpi-range[setting="temperature"]').value = convertToFahrenheit(
+							document.querySelector('sdpi-range[setting="temperature"]').value,
+						);
+					}
+
+					document.querySelector('sdpi-range[setting="temperature"]').parentElement.classList.remove("hidden");
+
+					writeValueToTemperatureSelected();
+				});
+
+				document.querySelector('sdpi-range[setting="temperature"]').addEventListener("valuechange", (ev) => {
+					writeValueToTemperatureSelected();
+				});
+			})();
+		</script>
+	</body>
 </html>

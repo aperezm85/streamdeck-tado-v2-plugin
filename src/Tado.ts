@@ -7,11 +7,8 @@ class TadoSingleton {
 	private static instance: TadoSingleton;
 	public tado!: Tado;
 
-	private constructor() {
-		this.initialize();
-	}
-
-	private async initialize() {
+	private constructor() {}
+	public async init(): Promise<void> {
 		const settings: TadoSettings = await streamDeck.settings.getGlobalSettings();
 
 		streamDeck.logger.info(`settings: ${JSON.stringify(settings)}`);
@@ -40,15 +37,15 @@ class TadoSingleton {
 
 		streamDeck.logger.info(`me: ${JSON.stringify(me)}`);
 
-		streamDeck.logger.info(`saving homes: ${JSON.stringify(settings)}`);
-		await streamDeck.settings.setGlobalSettings({
-			...settings,
-			homes: me.homes,
-		});
-		streamDeck.logger.info(`homes saved`);
+		// streamDeck.logger.info(`saving homes: ${JSON.stringify(settings)}`);
+		// await streamDeck.settings.setGlobalSettings({
+		// 	...settings,
+		// 	homes: me.homes,
+		// });
+		// streamDeck.logger.info(`homes saved`);
 
-		const savedSettings = await streamDeck.settings.getGlobalSettings();
-		streamDeck.logger.info(`savedSettings: ${JSON.stringify(savedSettings)}`);
+		// const savedSettings = await streamDeck.settings.getGlobalSettings();
+		// streamDeck.logger.info(`savedSettings: ${JSON.stringify(savedSettings)}`);
 	}
 
 	public static getInstance(): TadoSingleton {
@@ -72,4 +69,4 @@ class TadoSingleton {
 	}
 }
 
-export default TadoSingleton.getInstance();
+export default TadoSingleton;

@@ -11,7 +11,6 @@ Plugin for manage TADO Thermostat from the Elgato Stream Deck.
 
 ### Known issues
 
-- Plugin asks to refresh the Tado token constantly (needs review)
 - The translations are set for English, Spanish, French and German, but the Property inspector is only showing the english version (needs review)
 
 ### Thanks to Matt Davis for his node client and his updates

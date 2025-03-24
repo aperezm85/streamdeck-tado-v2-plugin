@@ -8,9 +8,9 @@ import {
 	WillAppearEvent,
 	WillDisappearEvent,
 } from "@elgato/streamdeck";
-import { MeHome, Tado, Token, Zone } from "node-tado-client";
+import { MeHome, Tado, Zone } from "node-tado-client";
 
-import { PowerSettings, TadoSettings, UnitTemperature } from "../types";
+import { PowerSettings, UnitTemperature } from "../types";
 
 @action({ UUID: "dev.aperez.new-tado.power" })
 export class Power extends SingletonAction<PowerSettings> {
@@ -22,46 +22,10 @@ export class Power extends SingletonAction<PowerSettings> {
 		super();
 
 		this.tado = tado;
-
-		this.initialize();
-	}
-
-	private async initialize() {
-		const settings: TadoSettings = await streamDeck.settings.getGlobalSettings();
-
-		this.tado.setTokenCallback(this.onTokenCallback);
-		streamDeck.logger.info(`settings?.expires_in: ${settings?.expiry}`);
-		streamDeck.logger.info(`settings?.refresh_token: ${settings?.refresh_token}`);
-		const [verify, futureToken] = await this.tado.authenticate(settings?.refresh_token || "refreshToken");
-
-		if (verify) {
-			streamDeck.logger.info("------------------------------------------------");
-			streamDeck.logger.info("Device authentication required.");
-			streamDeck.logger.info("Please visit the following website in a browser.");
-			streamDeck.logger.info("");
-			streamDeck.logger.info(`  ${verify.verification_uri_complete}`);
-			streamDeck.system.openUrl(verify.verification_uri_complete);
-			streamDeck.logger.info("");
-			streamDeck.logger.info(`Checks will occur every ${verify.interval}s up to a maximum of ${verify.expires_in}s`);
-			streamDeck.logger.info("------------------------------------------------");
-		}
-		await futureToken;
-	}
-
-	private async onTokenCallback(token: Token) {
-		const settings = await streamDeck.settings.getGlobalSettings();
-
-		await streamDeck.settings.setGlobalSettings({
-			...settings,
-			access_token: token.access_token,
-			refresh_token: token.refresh_token,
-			expiry: token.expiry.toISOString(),
-		});
 	}
 
 	override async onWillAppear(ev: WillAppearEvent<PowerSettings>): Promise<void> {
 		const settings = await streamDeck.settings.getGlobalSettings();
-		streamDeck.logger.info("onWillAppear", settings);
 
 		this.updateZoneState(ev);
 
