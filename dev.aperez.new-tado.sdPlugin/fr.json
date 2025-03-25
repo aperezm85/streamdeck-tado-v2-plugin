@@ -5,6 +5,12 @@
     "dev.aperez.new-tado.power": {
         "Name": "Allumer / Éteindre",
         "Tooltip": "Allumez ou éteignez le chauffage.",
+        "Encoder": {
+            "TriggerDescription": {
+                "Push": "Allumer ou Éteindre",
+                "Rotate": "Régler la Température"
+            }
+        },
         "States": [
             {
                 "Name": "Allumé"

@@ -5,6 +5,12 @@
     "dev.aperez.new-tado.power": {
         "Name": "Ein / Aus",
         "Tooltip": "Heizung ein- oder ausschalten.",
+        "Encoder": {
+            "TriggerDescription": {
+                "Push": "Ein- oder Ausschalten",
+                "Rotate": "Temperatur einstellen"
+            }
+        },
         "States": [
             {
                 "Name": "Ein"
