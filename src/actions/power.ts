@@ -1,5 +1,7 @@
 import {
 	action,
+	DialDownEvent,
+	DialRotateEvent,
 	DidReceiveSettingsEvent,
 	JsonObject,
 	KeyDownEvent,
@@ -25,8 +27,6 @@ export class Power extends SingletonAction<PowerSettings> {
 	}
 
 	override async onWillAppear(ev: WillAppearEvent<PowerSettings>): Promise<void> {
-		const settings = await streamDeck.settings.getGlobalSettings();
-
 		this.updateZoneState(ev);
 
 		this.updateInterval = setInterval(
@@ -60,7 +60,6 @@ export class Power extends SingletonAction<PowerSettings> {
 	override async onSendToPlugin(ev: any): Promise<void> {
 		streamDeck.logger.info("onSendToPlugin", JSON.stringify(ev, null, 2));
 		const settings = await ev.action.getSettings();
-		streamDeck.logger.info("onSendToPlugin settings", JSON.stringify(settings, null, 2));
 
 		if (ev.payload.event === "getHomes") {
 			this.getHomes();
@@ -87,6 +86,13 @@ export class Power extends SingletonAction<PowerSettings> {
 				this.setRoomValue(homeId as string, zoneId as string, unit as UnitTemperature, temperature as number);
 			}
 		}
+	}
+
+	private getIndicator(value: number, unit: UnitTemperature) {
+		if (unit === "celsius") {
+			return ((value - 5) / (25 - 5)) * 100;
+		}
+		return ((value - 41) / (77 - 41)) * 100;
 	}
 
 	private async getHomes() {
@@ -119,6 +125,7 @@ export class Power extends SingletonAction<PowerSettings> {
 		});
 		streamDeck.connect();
 	}
+
 	private async getTemperatureRoom(
 		homeId: string,
 		zoneId: string,
@@ -127,12 +134,35 @@ export class Power extends SingletonAction<PowerSettings> {
 	) {
 		streamDeck.logger.info("getTemperatureRoom", homeId, zoneId);
 
+		const { setting } = await this.tado.getZoneOverlay(parseInt(homeId as string, 10), parseInt(zoneId as string, 10));
 		try {
-			const zone = await this.tado.getZoneState(parseInt(homeId, 10), parseInt(zoneId, 10));
-			if (unit === "fahrenheit") {
-				return ev.action.setTitle(`${zone?.sensorDataPoints?.insideTemperature?.fahrenheit ?? 0}°F`);
+			const zoneState = await this.tado.getZoneState(parseInt(homeId, 10), parseInt(zoneId, 10));
+			const zone = (await this.tado.getZones(parseInt(homeId, 10))).find((z) => z.id === parseInt(zoneId, 10));
+
+			if (ev.action.isKey()) {
+				if (unit === "fahrenheit") {
+					return ev.action.setTitle(`${zoneState?.sensorDataPoints?.insideTemperature?.fahrenheit ?? 0}°F`);
+				}
+				return ev.action.setTitle(`${zoneState?.sensorDataPoints?.insideTemperature?.celsius ?? 0}°C`);
 			}
-			return ev.action.setTitle(`${zone?.sensorDataPoints?.insideTemperature?.celsius ?? 0}°C`);
+			if (ev.action.isDial()) {
+				try {
+					if (unit === "fahrenheit") {
+						return ev.action.setFeedback({
+							value: `${zoneState?.sensorDataPoints?.insideTemperature?.fahrenheit ?? 0}°F`,
+							title: `${setting.power}: ${zone?.name || ""}`,
+							indicator: this.getIndicator(zoneState?.sensorDataPoints?.insideTemperature?.fahrenheit, "fahrenheit"),
+						});
+					}
+					return ev.action.setFeedback({
+						value: `${zoneState?.sensorDataPoints?.insideTemperature?.celsius ?? 0}°C`,
+						title: `${setting.power}: ${zone?.name || ""}`,
+						indicator: this.getIndicator(zoneState?.sensorDataPoints?.insideTemperature?.celsius, "celsius"),
+					});
+				} catch (error) {
+					streamDeck.logger.error(`Error getting the zone: ${error}`);
+				}
+			}
 		} catch (error) {
 			streamDeck.logger.error(`Error getting the zone: ${error}`);
 		}
@@ -144,7 +174,6 @@ export class Power extends SingletonAction<PowerSettings> {
 			const { setting } = await this.tado.getZoneOverlay(parseInt(homeId, 10), parseInt(zoneId, 10));
 
 			if (ev.action.isKey()) {
-				streamDeck.logger.info("setting 1", JSON.stringify(setting, null, 2));
 				if (setting.power === "ON") {
 					ev.action.setState(0);
 				} else {
@@ -164,6 +193,52 @@ export class Power extends SingletonAction<PowerSettings> {
 		this.setRoomValue(homeId as string, zoneId as string, unit as UnitTemperature, temperature as number, true);
 	}
 
+	override async onDialDown(ev: DialDownEvent<PowerSettings>): Promise<void> {
+		streamDeck.logger.info(`onDialDown pressed!`);
+		const pluginSettings = await ev.action.getSettings();
+		const { homeId, zoneId, unit, temperature } = pluginSettings;
+
+		await this.setRoomValue(homeId as string, zoneId as string, unit as UnitTemperature, temperature as number, true);
+
+		if (ev.action.isDial()) {
+			const zone = (await this.tado.getZones(parseInt(homeId, 10))).find((z) => z.id === parseInt(zoneId, 10));
+			const { setting } = await this.tado.getZoneOverlay(
+				parseInt(homeId as string, 10),
+				parseInt(zoneId as string, 10),
+			);
+
+			return ev.action.setFeedback({
+				title: `${setting.power}: ${zone?.name || ""}`,
+			});
+		}
+	}
+
+	override async onDialRotate(ev: DialRotateEvent<PowerSettings>): Promise<void> {
+		streamDeck.logger.info(`onDialRotate pressed!`, ev);
+		const pluginSettings = await ev.action.getSettings();
+		const ticks = ev.payload.ticks;
+		const { homeId, zoneId, unit, temperature } = pluginSettings;
+		let newTemperature = temperature as number;
+		if (unit === "fahrenheit") {
+			newTemperature += ticks;
+			if (newTemperature < 41) {
+				newTemperature = 41;
+			} else if (newTemperature > 77) {
+				newTemperature = 77;
+			}
+		}
+		if (unit === "celsius") {
+			newTemperature += ticks / 2;
+			if (newTemperature < 5) {
+				newTemperature = 5;
+			} else if (newTemperature > 25) {
+				newTemperature = 25;
+			}
+		}
+
+		await ev.action.setSettings({ homeId, zoneId, unit, temperature: newTemperature });
+	}
+
 	private async setRoomValue(
 		homeId: string,
 		zoneId: string,
@@ -178,8 +253,6 @@ export class Power extends SingletonAction<PowerSettings> {
 					parseInt(homeId as string, 10),
 					parseInt(zoneId as string, 10),
 				);
-				streamDeck.logger.info("setting 2", JSON.stringify(setting, null, 2));
-				streamDeck.logger.info("changeState", changeState);
 				if (changeState) {
 					if (setting.power === "ON") {
 						streamDeck.logger.info(`Turning off the heating`);
@@ -209,7 +282,10 @@ export class Power extends SingletonAction<PowerSettings> {
 						);
 					}
 				} else {
-					streamDeck.logger.info(`Change temperature only`);
+					streamDeck.logger.info(
+						`Change temperature only`,
+						this.getTemperature(unit as UnitTemperature, temperature as number),
+					);
 					this.tado.setZoneOverlays(
 						parseInt(homeId as string, 10),
 						[

@@ -9,6 +9,8 @@ import {
 } from "@elgato/streamdeck";
 import { MeHome, type Tado, Zone } from "node-tado-client";
 
+import { UnitTemperature } from "../types";
+
 @action({ UUID: "dev.aperez.new-tado.current-temperature" })
 export class CurrentTemperature extends SingletonAction<CurrentTemperatureSettings> {
 	private updateInterval: NodeJS.Timeout | undefined;
@@ -114,6 +116,14 @@ export class CurrentTemperature extends SingletonAction<CurrentTemperatureSettin
 		});
 		streamDeck.connect();
 	}
+
+	private getIndicator(value: number, unit: UnitTemperature) {
+		if (unit === "celsius") {
+			streamDeck.logger.info("getIndicator", (value - 5) / (25 - 5) / 100);
+			return ((value - 5) / (25 - 5)) * 100;
+		}
+		return ((value - 41) / (77 - 41)) * 100;
+	}
 	private async getTemperatureRoom(
 		homeId: string,
 		zoneId: string,
@@ -121,15 +131,36 @@ export class CurrentTemperature extends SingletonAction<CurrentTemperatureSettin
 		ev: DidReceiveSettingsEvent<CurrentTemperatureSettings>,
 	) {
 		streamDeck.logger.info("getTemperatureRoom", homeId, zoneId);
+		const zoneState = await this.tado.getZoneState(parseInt(homeId, 10), parseInt(zoneId, 10));
+		const zone = (await this.tado.getZones(parseInt(homeId, 10))).find((z) => z.id === parseInt(zoneId, 10));
 
-		try {
-			const zone = await this.tado.getZoneState(parseInt(homeId, 10), parseInt(zoneId, 10));
-			if (unit === "fahrenheit") {
-				return ev.action.setTitle(`${zone?.sensorDataPoints?.insideTemperature?.fahrenheit ?? 0}°F`);
+		if (ev.action.isKey()) {
+			try {
+				if (unit === "fahrenheit") {
+					return ev.action.setTitle(`${zoneState?.sensorDataPoints?.insideTemperature?.fahrenheit ?? 0}°F`);
+				}
+				return ev.action.setTitle(`${zoneState?.sensorDataPoints?.insideTemperature?.celsius ?? 0}°C`);
+			} catch (error) {
+				streamDeck.logger.error(`Error getting the zone: ${error}`);
 			}
-			return ev.action.setTitle(`${zone?.sensorDataPoints?.insideTemperature?.celsius ?? 0}°C`);
-		} catch (error) {
-			streamDeck.logger.error(`Error getting the zone: ${error}`);
+		}
+		if (ev.action.isDial()) {
+			try {
+				if (unit === "fahrenheit") {
+					return ev.action.setFeedback({
+						value: `${zoneState?.sensorDataPoints?.insideTemperature?.fahrenheit ?? 0}°F`,
+						title: zone?.name || "",
+						indicator: this.getIndicator(zoneState?.sensorDataPoints?.insideTemperature?.fahrenheit, "fahrenheit"),
+					});
+				}
+				return ev.action.setFeedback({
+					value: `${zoneState?.sensorDataPoints?.insideTemperature?.celsius ?? 0}°C`,
+					title: zone?.name || "",
+					indicator: this.getIndicator(zoneState?.sensorDataPoints?.insideTemperature?.celsius, "celsius"),
+				});
+			} catch (error) {
+				streamDeck.logger.error(`Error getting the zone: ${error}`);
+			}
 		}
 	}
 }
