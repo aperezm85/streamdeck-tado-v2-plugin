@@ -15,3 +15,6 @@ type PowerSettings = {
 	unit: UnitTemperature;
 	temperature: number;
 };
+type BoostSettings = {
+	homeId: string;
+};

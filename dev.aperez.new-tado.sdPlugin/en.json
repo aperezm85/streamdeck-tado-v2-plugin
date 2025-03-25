@@ -17,5 +17,13 @@
     "dev.aperez.new-tado.current-temperature": {
         "Name": "Current temperature",
         "Tooltip": "Displays the current temperature of the selected thermostat."
+    },
+    "dev.aperez.new-tado.boost": {
+        "Name": "Boost all rooms",
+        "Tooltip": "Boost heating on all rooms."
+    },
+    "dev.aperez.new-tado.off": {
+        "Name": "Power off all rooms",
+        "Tooltip": "Turn off the heating on all rooms."
     }
 }

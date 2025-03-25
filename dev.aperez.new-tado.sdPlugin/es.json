@@ -23,5 +23,13 @@
                 "Name": "Apagado"
             }
         ]
+    },
+    "dev.aperez.new-tado.boost": {
+        "Name": "Al máximo todas las habitaciones",
+        "Tooltip": "Encienda la calefacción en todas las habitaciones."
+    },
+    "dev.aperez.new-tado.off": {
+        "Name": "Apagar en todas las habitaciones",
+        "Tooltip": "Apaga la calefacción en todas las habitaciones."
     }
 }

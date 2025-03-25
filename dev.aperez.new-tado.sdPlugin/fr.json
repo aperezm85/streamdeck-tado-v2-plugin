@@ -23,5 +23,13 @@
     "dev.aperez.new-tado.current-temperature": {
         "Name": "Température actuelle",
         "Tooltip": "Affiche la température actuelle du thermostat sélectionné."
+    },
+    "dev.aperez.new-tado.boost": {
+        "Name": "Augmenter toutes les pièces",
+        "Tooltip": "Augmente le chauffage dans toutes les pièces."
+    },
+    "dev.aperez.new-tado.off": {
+        "Name": "Éteindre toutes les pièces",
+        "Tooltip": "Éteint le chauffage dans toutes les pièces."
     }
 }

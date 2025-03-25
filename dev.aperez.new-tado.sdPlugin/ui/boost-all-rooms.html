@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+		<script src="./locale.js" type="text/javascript"></script>
+
+		<style>
+			.hidden {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+        Learn more about property inspector components at https://sdpi-components.dev/docs/components
+    -->
+		<sdpi-item label="__MSG_HomeLabel__">
+			<sdpi-select
+				id="homes"
+				setting="homeId"
+				placeholder="__MSG_PickHome__"
+				datasource="getHomes"
+				loading="__MSG_HomeFetchingLabel__"
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+	</body>
+</html>
