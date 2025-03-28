@@ -1,12 +1,12 @@
 {
-    "Name": "Tado V2",
+    "Name": "Tado",
     "Category": "Tado",
     "Description": "Controle su calefacción Tado desde su Stream Deck.",
-    "dev.aperez.new-tado.current-temperature": {
+    "dev.aperez.tado-plugin.current-temperature": {
         "Name": "Temperatura actual",
         "Tooltip": "Muestra la temperatura actual del termostato seleccionado."
     },
-    "dev.aperez.new-tado.power": {
+    "dev.aperez.tado-plugin.power": {
         "Name": "Endendido / Apagado",
         "Tooltip": "Enciende o apaga tu termostato desde el Stream Deck.",
         "Encoder": {
@@ -24,11 +24,11 @@
             }
         ]
     },
-    "dev.aperez.new-tado.boost": {
+    "dev.aperez.tado-plugin.boost": {
         "Name": "Al máximo todas las habitaciones",
         "Tooltip": "Encienda la calefacción en todas las habitaciones."
     },
-    "dev.aperez.new-tado.off": {
+    "dev.aperez.tado-plugin.off": {
         "Name": "Apagar en todas las habitaciones",
         "Tooltip": "Apaga la calefacción en todas las habitaciones."
     }

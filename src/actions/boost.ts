@@ -3,7 +3,7 @@ import { MeHome, Power, Tado, Zone } from "node-tado-client";
 
 import { BoostSettings } from "../types";
 
-@action({ UUID: "dev.aperez.new-tado.boost" })
+@action({ UUID: "dev.aperez.tado-plugin.boost" })
 export class Boost extends SingletonAction<BoostSettings> {
 	private tado: Tado;
 

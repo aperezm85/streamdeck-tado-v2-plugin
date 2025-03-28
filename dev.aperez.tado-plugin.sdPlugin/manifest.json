@@ -1,11 +1,11 @@
 {
-	"Name": "Tado V2",
+	"Name": "Tado",
 	"Version": "2.0.0.0",
 	"Author": "Alex Perez",
 	"Actions": [
 		{
 			"Name": "Current temperature",
-			"UUID": "dev.aperez.new-tado.current-temperature",
+			"UUID": "dev.aperez.tado-plugin.current-temperature",
 			"Icon": "imgs/actions/status/icon",
 			"Tooltip": "Displays the current temperature of the selected thermostat.",
 			"PropertyInspectorPath": "ui/current-temperature.html",
@@ -27,7 +27,7 @@
 		},
 		{
 			"Name": "On / Off",
-			"UUID": "dev.aperez.new-tado.power",
+			"UUID": "dev.aperez.tado-plugin.power",
 			"Icon": "imgs/actions/power/power",
 			"Tooltip": "Turn heating on or off.",
 			"PropertyInspectorPath": "ui/power.html",
@@ -61,7 +61,7 @@
 		},
 		{
 			"Name": "Boost all rooms",
-			"UUID": "dev.aperez.new-tado.boost",
+			"UUID": "dev.aperez.tado-plugin.boost",
 			"Icon": "imgs/actions/boost/boost",
 			"Tooltip": "Boost heating on all rooms.",
 			"PropertyInspectorPath": "ui/boost-all-rooms.html",
@@ -80,7 +80,7 @@
 		},
 		{
 			"Name": "Power off all rooms",
-			"UUID": "dev.aperez.new-tado.off",
+			"UUID": "dev.aperez.tado-plugin.off",
 			"Icon": "imgs/actions/off/power-off",
 			"Tooltip": "Turn off the heating on all rooms.",
 			"PropertyInspectorPath": "ui/boost-all-rooms.html",
@@ -98,7 +98,7 @@
 			]
 		}
 	],
-	"Category": "Tado V2",
+	"Category": "Tado",
 	"CategoryIcon": "imgs/plugin/category-icon",
 	"CodePath": "bin/plugin.js",
 	"Description": "Control your Tado thermostat from your Elgato Stream Deck",
@@ -121,5 +121,5 @@
 		"Version": "20",
 		"Debug": "enabled"
 	},
-	"UUID": "dev.aperez.new-tado"
+	"UUID": "dev.aperez.tado-plugin"
 }

@@ -3,7 +3,7 @@ import { MeHome, Power, Tado, Zone } from "node-tado-client";
 
 import { BoostSettings } from "../types";
 
-@action({ UUID: "dev.aperez.new-tado.off" })
+@action({ UUID: "dev.aperez.tado-plugin.off" })
 export class PowerAllOff extends SingletonAction<BoostSettings> {
 	private tado: Tado;
 

@@ -7,7 +7,7 @@ import path from "node:path";
 import url from "node:url";
 
 const isWatching = !!process.env.ROLLUP_WATCH;
-const sdPlugin = "dev.aperez.new-tado.sdPlugin";
+const sdPlugin = "dev.aperez.tado-plugin.sdPlugin";
 
 /**
  * @type {import('rollup').RollupOptions}

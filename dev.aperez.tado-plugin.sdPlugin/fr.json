@@ -1,8 +1,8 @@
 {
-    "Name": "Tado V2",
+    "Name": "Tado",
     "Category": "Tado",
     "Description": "Contrôlez votre chauffage Tado.",
-    "dev.aperez.new-tado.power": {
+    "dev.aperez.tado-plugin.power": {
         "Name": "Allumer / Éteindre",
         "Tooltip": "Allumez ou éteignez le chauffage.",
         "Encoder": {
@@ -20,15 +20,15 @@
             }
         ]
     },
-    "dev.aperez.new-tado.current-temperature": {
+    "dev.aperez.tado-plugin.current-temperature": {
         "Name": "Température actuelle",
         "Tooltip": "Affiche la température actuelle du thermostat sélectionné."
     },
-    "dev.aperez.new-tado.boost": {
+    "dev.aperez.tado-plugin.boost": {
         "Name": "Augmenter toutes les pièces",
         "Tooltip": "Augmente le chauffage dans toutes les pièces."
     },
-    "dev.aperez.new-tado.off": {
+    "dev.aperez.tado-plugin.off": {
         "Name": "Éteindre toutes les pièces",
         "Tooltip": "Éteint le chauffage dans toutes les pièces."
     }

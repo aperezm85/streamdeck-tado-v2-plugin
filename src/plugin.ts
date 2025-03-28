@@ -39,10 +39,10 @@ streamDeck.actions.onWillAppear(async (jsonObj) => {
 
 	streamDeck.logger.info("actionId", actionId);
 	// Handle specific actions
-	if (actionId === "dev.aperez.new-tado.current-temperature") {
+	if (actionId === "dev.aperez.tado-plugin.current-temperature") {
 		currentTemperatureAction.onWillAppear(jsonObj as any);
 	}
-	if (actionId === "dev.aperez.new-tado.power") {
+	if (actionId === "dev.aperez.tado-plugin.power") {
 		powerAction.onWillAppear(jsonObj as any);
 	}
 });

@@ -1,7 +1,7 @@
 {
     "scripts": {
         "build": "rollup -c",
-        "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart dev.aperez.new-tado\"",
+        "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart dev.aperez.tado-plugin\"",
         "lint:check": "prettier . --check",
         "lint:fix": "prettier . --write"
     },
@@ -15,8 +15,8 @@
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^12.1.2",
         "@tsconfig/node20": "^20.1.5",
-        "@types/node": "~22.13.13",
-        "node-tado-client": "^1.0.0",
+        "@types/node": "~22.13.14",
+        "node-tado-client": "^1.0.1",
         "rollup": "^4.37.0",
         "tslib": "^2.8.1",
         "typescript": "^5.8.2"

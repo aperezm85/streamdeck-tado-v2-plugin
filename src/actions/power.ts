@@ -14,7 +14,7 @@ import { MeHome, Tado, Zone } from "node-tado-client";
 
 import { PowerSettings, UnitTemperature } from "../types";
 
-@action({ UUID: "dev.aperez.new-tado.power" })
+@action({ UUID: "dev.aperez.tado-plugin.power" })
 export class Power extends SingletonAction<PowerSettings> {
 	private updateInterval: NodeJS.Timeout | undefined;
 
@@ -33,7 +33,7 @@ export class Power extends SingletonAction<PowerSettings> {
 			async () => {
 				await this.updateZoneState(ev);
 			},
-			5 * 60 * 1000,
+			2 * 60 * 1000,
 		);
 	}
 

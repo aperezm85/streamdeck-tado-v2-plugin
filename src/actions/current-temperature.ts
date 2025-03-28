@@ -11,7 +11,7 @@ import { MeHome, type Tado, Zone } from "node-tado-client";
 
 import { UnitTemperature } from "../types";
 
-@action({ UUID: "dev.aperez.new-tado.current-temperature" })
+@action({ UUID: "dev.aperez.tado-plugin.current-temperature" })
 export class CurrentTemperature extends SingletonAction<CurrentTemperatureSettings> {
 	private updateInterval: NodeJS.Timeout | undefined;
 
@@ -30,7 +30,7 @@ export class CurrentTemperature extends SingletonAction<CurrentTemperatureSettin
 			async () => {
 				await this.updateZoneState(ev);
 			},
-			5 * 60 * 1000,
+			2 * 60 * 1000,
 		);
 	}
 

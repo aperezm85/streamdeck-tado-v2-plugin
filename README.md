@@ -1,8 +1,8 @@
-# streamdeck-tado-v2-plugin
+# streamdeck-tado-plugin
 
 Plugin for manage TADO Thermostat from the Elgato Stream Deck.
 
-![Thumbnail](https://github.com/aperezm85/streamdeck-tado-v2-plugin/blob/main/dev.aperez.new-tado.sdPlugin/imgs/screenshots/Thumbnail.png?raw=true "Tado")
+![Thumbnail](https://github.com/aperezm85/streamdeck-tado-v2-plugin/blob/main/dev.aperez.tado-plugin.sdPlugin/imgs/screenshots/Thumbnail.png?raw=true "Tado")
 
 > [!WARNING]
 > This plugin works only for thermostats Tado V2 and V3 (Not TadoX)
@@ -18,7 +18,7 @@ Plugin for manage TADO Thermostat from the Elgato Stream Deck.
 - You can turn on all the thermostats to the maximum power! (Boost)
 - You can turn off all the thermostats on your home
 
-![What you can do](https://github.com/aperezm85/streamdeck-tado-v2-plugin/blob/main/dev.aperez.new-tado.sdPlugin/imgs/screenshots/Screenshot.png?raw=true)
+![What you can do](https://github.com/aperezm85/streamdeck-tado-v2-plugin/blob/main/dev.aperez.tado-plugin.sdPlugin/imgs/screenshots/Screenshot.png?raw=true)
 
 ### Known issues
 
