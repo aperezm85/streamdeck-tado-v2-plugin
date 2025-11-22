@@ -1,5 +1,9 @@
 # streamdeck-tado-plugin
 
+> [!WARNING]
+> Due to latest Tado API changes, I don't recommend to use this plugin on streamdeck until issues with rate limit and auth has being solved
+
+
 Plugin for manage TADO Thermostat from the Elgato Stream Deck.
 
 ![Thumbnail](https://github.com/aperezm85/streamdeck-tado-v2-plugin/blob/main/dev.aperez.tado-plugin.sdPlugin/imgs/screenshots/Thumbnail.png?raw=true "Tado")
@@ -21,6 +25,8 @@ Plugin for manage TADO Thermostat from the Elgato Stream Deck.
 ![What you can do](https://github.com/aperezm85/streamdeck-tado-v2-plugin/blob/main/dev.aperez.tado-plugin.sdPlugin/imgs/screenshots/Screenshot.png?raw=true)
 
 ### Known issues
+
+- Tado added a rate limit of 100 API calls per day, so I will not recommend to use this plugin until futher notice.
 
 - The auth screen appears more often that desired. Sometimes the plugin don't load correctly, but you can click other plugin on your SD configuration or restart it to fix it (working on an improvement)
 
